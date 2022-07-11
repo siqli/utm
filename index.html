@@ -1,0 +1,303 @@
+<!--SPDX-License-Identifier: Jam-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UTM Link Generator | Siqli</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="robots" content="noindex, nofollow, noarchive, notranslate">
+    <meta name="referrer" content="no-referrer">
+    <link rel="canonical" href="https://siq.li">
+
+    <style nonce="8a7f25cd6e9b">
+      :root {
+        --bgColour: #FAFAFA;
+        --fgColour: #202020;
+        --accentColour: #2010BC;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fgColour: #FAFAFA;
+          --bgColour: #202020;
+          --accentColour: #F1EECC;
+        }
+      }
+      *{
+        font-family: 'Courier New', Courier, monospace;
+      }
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+        font-size: 100%;
+        background-color: var(--bgColour);
+        color: var(--fgColour);
+        font-weight: 400;
+      }
+      a {
+        color: var(--accentColour);
+        text-decoration: underline solid;
+        font-weight: bold;
+      }
+      a:hover,
+      a:focus,
+      a:active {
+        text-decoration: underline dotted;
+      }
+      a:focus {
+        border: 1px dashed var(--accentColour)
+      }
+
+      header,
+      main {
+        display: flex;
+      }
+      main,
+      header {
+        flex-direction: row;
+        margin: 0 auto;
+        max-width: 1200px;
+        width: 90vw;
+      }
+      header {
+        margin-top: 2rem;
+      }
+      footer {
+        width: 90vw;
+        max-width: 1200px;
+        margin: 0 auto 3rem;
+      }
+      main form {
+        width: 100%;
+      }
+
+      section#details {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      @media screen and (max-width: 1100px) {
+        section#details input[type=text] {
+          width: 100%;
+        }
+      }
+      @media screen and (max-width: 600px) {
+        section#details {
+          display: block;
+        }
+        section#details input[type=text] {
+          width: 100%;
+        }
+        .sm-inline {
+          display: inline-flex;
+          width:30%;
+        }
+      }
+      fieldset {
+        display: grid;
+        grid-template-columns: repeat(2, 50% [col-start]);
+        margin: 0;
+        padding: 0;
+        /* border: 1px solid #000000; */
+        border: none;
+        justify-content: space-between;
+      }
+      fieldset div {
+        margin-top: 1rem;
+      }
+      fieldset input {
+        width: calc(100% - 0.5rem);
+      }
+      fieldset div:nth-child(odd) {
+        margin-left: 1rem;
+      }
+      fieldset div:nth-child(even) {
+        margin-right: 1rem;
+      }
+      input[name=source_link] {
+        width: 100%;
+      }
+      @media screen and (max-width: 600px) {
+        fieldset[name=utm] {
+          display: block;
+          grid-template-columns: unset;
+        }
+        fieldset div:nth-child(odd) {
+          margin-left: unset;
+        }
+        fieldset div:nth-child(even) {
+          margin-right: unset;
+        }
+        }
+      fieldset legend {
+        font-style: italic;
+      }
+
+      form label,
+      form input,
+      button {
+        font-size: 1.5rem;
+      }
+      form label {
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+      }
+      form label span {
+        font-weight: normal;
+        font-style: italic;
+        line-height: 0;
+      }
+      p.btn {
+        margin-top: 2rem;
+      }
+      button {
+        padding: 10px;
+      }
+      label span {
+        font-size: 1rem;
+      }
+      input {
+        border-style: solid;
+        border-color: var(--accentColour);
+        border-width: 1px;
+        padding: 0.5rem 0.25rem;
+        background-color: var(--bgColour);
+        color: var(--fgColour);
+      }
+      input::placeholder,
+      input::-moz-placeholder {
+        color: var(--accentColour);
+        opacity: 0.8;
+      }
+      input::selection {
+        background-color: var(--accentColour);
+        color: var(--bgColour);
+      }
+      input:focus {
+        outline: var(--accentColour) dashed 2px;
+        border-color: var(--bgColour);
+      }
+      input[name=long_url],
+      input[name=sharable] {
+        width: calc(100% - 0.5rem);
+      }
+      button {
+        background-color: var(--fgColour);
+        color: var(--bgColour);
+        padding: 0.6rem 0.5rem;
+        /* border-radius: 1rem; */
+        cursor: pointer;
+        border: none;
+        font-weight: bold;
+      }
+      button:hover,
+      button:focus,
+      button:active {
+        background-color: var(--accentColour);
+      }
+      #notice {
+        font-size: 75%;
+        color: var(--accentColour);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>UTM Link creator <span id="notice"></span></h1>
+    </header>
+    <main>
+      <form name="share_url">
+        <section id="long">
+          <p>
+            <label>Sharable URL<br/>
+              <input type="url" name="sharable" value="https://example.com" readonly/>
+            </label>
+          </p>
+          <p>
+            <label>Base URL<br/>
+              <input type="url" name="long_url" value="https://example.com"/>
+            </label>
+          </p>
+        </section>
+        <fieldset name="utm">
+          <legend><h3>Set UTM Parameters for link</h3></legend>
+          <div>
+            <label>UTM Campaign<br/>
+              <input type="text" name="utm_campaign" placeholder="wicked-new-pre-order"/><br>
+              <span>E.g. New T-Shirt Pre-order / new-t-shirt-pre-order</span>
+            </label>
+            <p><strong>Campaign name:</strong> The name of the marketing campaign connected to the link. For instance, an advertisement for a summer fashion sale might be entered into UTMs as summer-fashion-sale-2021. A good campaign parameter is made in a way that allows it to be used across mediums, meaning this UTM should also be used in the newsletter issue devoted to that sale, the social media posts, or affiliate links.</p>
+          </div>
+          <div>
+            <label>UTM Source<br/>
+              <input type="text" name="utm_source" placeholder="e.g. Twitter"/><br>
+              <span>E.g. MailChimp, Facebook, Twitter</span>
+            </label>
+            <p><strong>Campaign source:</strong> The visitor&rsquo;s original location before clicking and visiting your site. In other words, where the link was placed. Usually shortened to just "source." You&rsquo;ll usually put in the website or platform the visitor comes from. You can also get advanced and put in the newsletter name or a similar more detailed piece of information.</p>
+          </div>
+          <div>
+            <label>UTM Medium<br/>
+              <input type="text" name="utm_medium" placeholder="e.g. email"/><br>
+              <span>E.g. email, social, referral, affiliate, cpc, ppc, cpm, display</span>
+            </label>
+            <p><strong>Campaign Medium:</strong> Think of it as short for marketing medium. It's the outreach method used—for instance, email, social, or ppc.</p>
+          </div>
+          <div>
+            <label>UTM Content<br/>
+              <input type="text" name="utm_content" placeholder="e.g. Order now"/><br>
+            </label>
+            <p><strong>Campaign Content:</strong> An optional parameter, this field indicates the type of content that delivered the link. This can be used for ad types or post types.</p>
+          </div>
+          <div>
+            <label>UTM Term<br/>
+              <input type="text" name="utm_term" placeholder="e.g. t-shirt,"/><br>
+            </label>
+            <p><strong>Campaign Term:</strong> Our second optional parameter, term, is gaining popularity among CPC marketers. It's typically used with search advertising, indicating the keyword the ad is triggered for. It could also be used for ad headlines on social, subject lines in newsletters, or to delineate different versions of A/B tests.</p>
+          </div>
+        </fieldset>
+        <p>
+          <button type="reset">Reset</button>
+        </p>
+      </form>
+    </main>
+
+    <footer>
+      <p>UTM descriptions via <a href="https://siq.li/oJ6" title="UTM and UTM convention best practices">funnel.io</a>.</p>
+      <p>&copy; Copyright 2022 Siqli | Jam License</p>
+    </footer>
+
+    <script nonce="8a7f25cd6e9b">
+      document.querySelector('input[name=sharable]').addEventListener("click", (e) => {
+        try {
+          e.target.select();
+          navigator.clipboard.writeText(e.target.value).then(res=>{
+            document.getElementById("notice").innerHTML = "&mdash; Copied to clipboard";
+            setTimeout(() => {
+              document.getElementById("notice").innerText = "";
+            }, 1500);
+          });
+        } catch(err) {
+          alert(err);
+        }
+      });
+
+      document.querySelectorAll('input').forEach(q => {
+        q.addEventListener('change', (event) => {
+          const formElements = document.forms.share_url.elements;
+          const { long_url, sharable, utm } = formElements;
+          const url = new URL(long_url.value)
+
+          if (long_url.value) {
+            for (const v of utm.elements) {
+              if (v.value.trim().length > 0) url.searchParams.set(v.name, v.value.trim())
+            }
+            sharable.value = url.href
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
